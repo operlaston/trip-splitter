@@ -3,6 +3,8 @@ const app = express()
 const cors = require('cors')
 const tripsRouter = require('./controllers/tripsRouter')
 const usersRouter = require('./controllers/usersRouter')
+const loginRouter = require('./controllers/loginRouter')
+const signupRouter = require('./controllers/signupRouter')
 const middleware = require('./utils/middleware')
 
 // middleware
@@ -10,7 +12,13 @@ app.use(cors())
 app.use(express.json())
 // app.use(middleware.requestLogger)
 
-// routers
+// login/signup (no jwt auth required)
+app.use('/login', loginRouter)
+app.use('/signup', signupRouter)
+
+app.use(middleware.verifyToken)
+
+// jwt auth required endpoints
 app.use('/trips', tripsRouter)
 app.use('/users', usersRouter)
 
