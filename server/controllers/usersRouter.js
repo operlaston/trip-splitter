@@ -17,7 +17,7 @@ usersRouter.get('/', async (req, res) => {
 usersRouter.get('/:id', async (req, res) => {
   const id = req.params.id
   const result = await pool.query("\
-    SELECT * FROM users WHERE user_id = $1\
+    SELECT * FROM users WHERE id = $1\
     ", [id])
   if (result.rowCount === 0) {
     return res.status(404).send('id doesnt exist')
@@ -32,7 +32,7 @@ usersRouter.put('/:id', async (req, res) => {
   const result = await pool.query("\
     UPDATE users \
     SET name = $1, username = $2 \
-    WHERE user_id = $3 \
+    WHERE id = $3 \
     RETURNING * \
     ", [name, username, id])
   if (result.rowCount === 0) {
@@ -45,7 +45,7 @@ usersRouter.put('/:id', async (req, res) => {
 usersRouter.delete('/:id', async (req, res) => {
   const id = req.params.id
   const result = await pool.query("\
-    DELETE FROM users WHERE user_id = $1 \
+    DELETE FROM users WHERE id = $1 \
     ", [id])
   if (result.rowCount === 0) {
     return res.status(404).send('id doesnt exist')

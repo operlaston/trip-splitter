@@ -14,7 +14,7 @@ tripsRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
   const trip = await pool.query(" \
     SELECT * FROM trips \
-    WHERE trip_id = $1 \
+    WHERE id = $1 \
     ", [id])
   if (trip.rowCount == 0) {
     return res.status(404).send('id doesnt exist');
@@ -41,7 +41,7 @@ tripsRouter.put("/:id", async (req, res) => {
   const updatedTrip = await pool.query("\
     UPDATE trips \
     SET name = $1, target_currency = $2 \
-    WHERE trip_id = $3 \
+    WHERE id = $3 \
     RETURNING * \
     ", [name, target_currency, id])
   if (updatedTrip.rowCount == 0) {
@@ -55,7 +55,7 @@ tripsRouter.delete("/:id", async (req, res) => {
   const id = req.params.id
   const deletedTrip = await pool.query("\
     DELETE FROM trips \
-    WHERE trip_id = $1 \
+    WHERE id = $1 \
     ", [id])
   if (deletedTrip.rowCount === 0) {
     return res.status(404).send('id doesnt exist')

@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  font-family: "Inter", sans-serif;
+}
+
+
+
+/* CSS RESET */
+
 /* Box sizing rules */
 *,
 *::before,
@@ -24,6 +34,7 @@ blockquote,
 dl,
 dd {
   margin-block-end: 0;
+  margin: 0;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */

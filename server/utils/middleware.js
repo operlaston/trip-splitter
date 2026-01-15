@@ -24,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
     res.status(409).send(err.message)
   }
   else if (err.name === 'JsonWebTokenError') {
-    res.status(401).send('invalid token')
+    res.status(401).send('JsonWebTokenError: invalid token')
   }
   else if (err.name === 'TokenExpiredError') {
     res.status(401).send('token expired')
@@ -39,7 +39,7 @@ const verifyToken = (req, res, next) => {
   const auth = req.get('Authorization')
   if (auth && auth.startsWith('Bearer')) {
     // Authorization: Bearer token
-    const token = auth.replace('Bearer', '').trim()
+    const token = auth.slice(6).trim()
     const decodedToken = jwt.verify(token, JWT_SECRET)
     if (!decodedToken.id) {
       return res.status(401).send('invalid token')
