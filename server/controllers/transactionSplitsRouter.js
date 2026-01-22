@@ -2,7 +2,7 @@ const transactionSplitsRouter = require('express').Router({ mergeParams: true })
 const pool = require('../db')
 
 transactionSplitsRouter.get('/', async (req, res) => {
-  const transactionId = req.params.id
+  const transactionId = req.params.transactionId
 
   const getSplitsResponse = await pool.query("\
     SELECT ts.transaction_id, ts.amount_owed, u.id as owing_user_id, u.username as owing_user_username, u.name as owing_user_name \

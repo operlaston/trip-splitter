@@ -1,5 +1,8 @@
 const transactionsRouter = require('express').Router({ mergeParams: true })
+const transactionSplitsRouter = require('./transactionSplitsRouter')
 const pool = require('../db')
+
+transactionsRouter.use('/:transactionId/splits', transactionSplitsRouter)
 
 // get all transactions for a trip
 transactionsRouter.get('/', async (req, res) => {

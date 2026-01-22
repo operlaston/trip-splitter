@@ -5,7 +5,6 @@ const tripsRouter = require('./controllers/tripsRouter')
 const usersRouter = require('./controllers/usersRouter')
 const loginRouter = require('./controllers/loginRouter')
 const signupRouter = require('./controllers/signupRouter')
-const transactionSplitsRouter = require('./controllers/transactionSplitsRouter')
 const middleware = require('./utils/middleware')
 
 // middleware
@@ -22,7 +21,6 @@ app.use(middleware.verifyToken)
 // jwt auth required endpoints
 app.use('/trips', tripsRouter)
 app.use('/users', usersRouter)
-app.use('/transactions/:id/splits', transactionSplitsRouter)
 
 app.all(/.*/, middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
