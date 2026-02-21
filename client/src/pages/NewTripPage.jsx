@@ -10,13 +10,22 @@ const NewTripPage = () => {
     name: "",
     targetCurrency: ""
   })
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const queryClient = useQueryClient()
 
   const newTripMutation = useMutation({
     mutationFn: createTrip,
     onSuccess: () => {
+      setIsLoading(false)
       queryClient.invalidateQueries({ queryKey: ['trips'] })
+      navigate('/')
+    },
+    onError: (err) => {
+      setIsLoading(false)
+      console.error(err)
+      setError("an unknown error occurred")
     }
   })
 
@@ -26,8 +35,8 @@ const NewTripPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setIsLoading(true)
     newTripMutation.mutate(formData)
-    navigate('/')
   }
 
   return (
@@ -46,8 +55,11 @@ const NewTripPage = () => {
           <option value="JPY">JPY</option>
           <option value="CNY">CNY</option>
         </select>
-        <button>Create</button>
+        {
+          isLoading ? <button className="button-loading">Creating Trip...</button> : <button>Create</button>
+        }
         <div className="new-trip-note">*Note: Target currency is the currency you plan to use to pay your friends back. All payments from the trip will be converted back to this currency.</div>
+        <div className="login-error">{error}</div>
       </form>
     </div>
   )

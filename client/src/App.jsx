@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import useAuth from './store/authStore'
 import Navbar from './components/Navbar'
 import NewTripPage from './pages/NewTripPage'
+import JoinTripPage from './pages/JoinTripPage'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/newtrip" element={<NewTripPage />} />
+          <Route path="/jointrip" element={<JoinTripPage />} />
         </Route>
       </Routes>
     </div>

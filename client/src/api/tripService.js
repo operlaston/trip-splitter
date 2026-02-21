@@ -13,3 +13,8 @@ export const createTrip = async (newTrip) => {
   const response = await api.post('/trips', newTripFormatted)
   return response.data
 }
+
+export const joinTrip = async (tripId) => {
+  const response = await api.post(`/trips/${tripId}/members`, {})
+  return response.data
+}

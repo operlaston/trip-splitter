@@ -19,6 +19,9 @@ const errorHandler = (err, req, res, next) => {
   if (err.isUnknownEndpoint) {
     res.status(404).send(`Requested Route: ${req.originalUrl} doesn't exist`)
   }
+  else if (err.code === '22P02') {
+    res.status(400).send(err.message)
+  }
   else if (err.code === '23505') {
     // UNIQUENESSS VIOLATION POSTGRESQL
     res.status(409).send(err.message)

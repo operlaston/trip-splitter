@@ -6,29 +6,6 @@ import { getTrips } from '../api/tripService.js'
 import { useNavigate } from 'react-router'
 import TripCard from '../components/home/TripCard.jsx'
 
-const testTrips = [
-  {
-    name: "Japan 2025-26",
-    in_progress: false,
-    created_at: "2025-07-21 10:00:00-05:00"
-  },
-  {
-    name: "Sweden 2026",
-    in_progress: true,
-    created_at: "2026-01-21 10:00:00-06:00"
-  },
-  {
-    name: "asdf",
-    in_progress: true,
-    created_at: "2026-01-22 10:00:00-06:00"
-  },
-  {
-    name: "qwerty",
-    in_progress: false,
-    created_at: "2026-01-02 10:00:00-06:00"
-  },
-]
-
 const HomePage = () => {
   const user = useAuth(state => state.user)
   const navigate = useNavigate()
@@ -55,7 +32,7 @@ const HomePage = () => {
           </h2>
           <div className="home-trip-actions">
             <button className="create-trip-button home-action-button" onClick={() => navigate('/newtrip')}>+ Create a New Trip</button>
-            <button className="join-trip-button home-action-button">Join a Trip</button>
+            <button className="join-trip-button home-action-button" onClick={() => navigate('/jointrip')}>Join a Trip</button>
           </div>
         </div>
         <div className="home-trips-section-container">

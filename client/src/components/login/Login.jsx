@@ -77,7 +77,7 @@ const Login = () => {
       </div>
       <div className="login-bottom-container">
         {isLoading ?
-          <button disabled className="button-loading">Logging in...</button>
+          <button disabled className="login-button button-loading">Logging in...</button>
           : <button type="submit" className="login-button">Log in</button>
         }
         <div className="login-switch-text">
