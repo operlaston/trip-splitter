@@ -3,7 +3,8 @@
   place-items: center;
   min-height: 100vh;
   /* background-image: linear-gradient(to right, #D1913C, #FFD194); */
-  background: #121212;
+  /* background: #121212; */
+  background: var(--bg1);
   color: #FFFFFF;
 }
 

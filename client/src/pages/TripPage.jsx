@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 import { getTripById } from '../api/tripService'
 import TripMembers from '../components/trip/TripMembers'
+import Transactions from '../components/trip/Transactions'
 
 const TripPage = () => {
   const { tripId } = useParams()
@@ -21,6 +22,7 @@ const TripPage = () => {
   }
 
   else if (tripQuery.isError) {
+    console.error(tripQuery.error)
     return (
       <div className="trip-page-container">
         An error has occurred while loading trip with id: {tripId}.
@@ -32,8 +34,17 @@ const TripPage = () => {
 
   return (
     <div className="trip-page-container">
-      <div>This is the trip page for {trip.name} with currency {trip.target_currency}</div>
-      <TripMembers />
+      <div className="trip-content-container">
+        <h1>{trip.name}</h1>
+        <div className="trip-body-container">
+          <div className="trip-section-container">
+            <Transactions />
+          </div>
+          <div className="trip-section-container">
+            <TripMembers />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

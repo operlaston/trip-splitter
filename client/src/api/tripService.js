@@ -28,3 +28,8 @@ export const getTripMembers = async (tripId) => {
   const response = await api.get(`/trips/${tripId}/members`)
   return response.data
 }
+
+export const getTransactions = async (tripId) => {
+  const response = await api.get(`/trips/${tripId}/transactions`)
+  return response.data
+}

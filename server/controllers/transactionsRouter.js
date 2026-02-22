@@ -23,9 +23,9 @@ transactionsRouter.get('/', async (req, res) => {
     WHERE trip_id = $1\
     ", [tripId])
 
-  if (response.rowCount === 0) {
-    return res.status(404).send('trip doesnt exist')
-  }
+  // if (response.rowCount === 0) {
+  //   return res.status(404).send('trip doesnt exist')
+  // }
 
   const isUserTripMember = await isTripMember(tripId, userId)
   if (!isUserTripMember) {

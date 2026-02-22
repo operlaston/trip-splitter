@@ -12,6 +12,10 @@
   --button-grad1: #9A67EA;
 }
 
+body {
+  background: var(--bg0);
+}
+
 button {
   cursor: pointer;
   border: none;

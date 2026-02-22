@@ -12,24 +12,35 @@ const TripMembers = () => {
 
   if (tripMembersQuery.isPending) {
     return (
-      <div>
-        Loading Trip Members...
-      </div>
+      <>
+        <h2>
+          Trip Members
+        </h2>
+        <div>
+          Loading Trip Members...
+        </div>
+      </>
     )
   }
 
   else if (tripMembersQuery.isError) {
+    console.error(tripMembersQuery.error)
     return (
-      <div>
-        An error has occurred while loading trip members.
-      </div>
+      <>
+        <h2>
+          Trip Members
+        </h2>
+        <div className="login-error">
+          An error has occurred while loading trip members.
+        </div>
+      </>
     )
   }
 
   const tripMembers = tripMembersQuery.data
 
   return (
-    <div>
+    <>
       <h2>
         Trip Members
       </h2>
@@ -44,7 +55,7 @@ const TripMembers = () => {
           )
         })
       }
-    </div>
+    </>
   )
 
 }
