@@ -91,7 +91,7 @@ const TripPage = () => {
           }
         </h1>
         <div className="trip-actions">
-          <h2 className="trip-id"><b>Trip Id: {trip.id}</b></h2>
+          <h2 className="trip-id"><b>Join Code: {trip.id}</b></h2>
           <div><i>This trip is currently {trip.locked ? "locked" : "unlocked"} meaning {trip.locked ? "no new members may join." : "new members may join."} Click the lock icon to {trip.locked ? "unlock the trip." : "lock the trip."}</i></div>
           <button className="add-transaction-btn" onClick={() => setIsCreatingTransaction(prev => !prev)}>+ Add Transaction</button> 
         </div>
