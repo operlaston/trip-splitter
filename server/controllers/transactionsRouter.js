@@ -47,7 +47,7 @@ transactionsRouter.get('/', async (req, res) => {
 })
 
 // add a transaction and transaction splits for a trip
-// request body: { amountPaid, currency, transactionSplits }
+// request body: { amountPaid, description, transactionSplits }
 // transactionSplits is an array of { owingUser, amountOwed } objects
 transactionsRouter.post('/', async (req, res) => {
   const tripId = req.params.id
@@ -67,7 +67,7 @@ transactionsRouter.post('/', async (req, res) => {
   try {
     // transactionSplits is an array of objects
     // that contains the owingUser and the amountOwed
-    const { amountPaid, currency, transactionSplits } = req.body
+    const { amountPaid, description, transactionSplits } = req.body
 
     // start transaction
     await pool.query("BEGIN")
@@ -75,10 +75,10 @@ transactionsRouter.post('/', async (req, res) => {
     // create transaction
     const response = await pool.query("\
       INSERT INTO transactions \
-      (trip_id, paying_user, amount_paid, currency, removed) \
-      VALUES ($1, $2, $3, $4, $5) \
+      (trip_id, paying_user, amount_paid, description) \
+      VALUES ($1, $2, $3, $4) \
       RETURNING *\
-      ", [tripId, userId, amountPaid, currency, false])
+      ", [tripId, userId, amountPaid, description])
 
     const transactionId = response.rows[0].id
 

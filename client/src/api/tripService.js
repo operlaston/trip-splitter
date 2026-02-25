@@ -33,3 +33,13 @@ export const getTransactions = async (tripId) => {
   const response = await api.get(`/trips/${tripId}/transactions`)
   return response.data
 }
+
+export const lockTrip = async (tripId) => {
+  const response = await api.put(`/trips/${tripId}/lock`)
+  return response.data
+}
+
+export const unlockTrip = async (tripId) => {
+  const response = await api.put(`/trips/${tripId}/unlock`)
+  return response.data
+}

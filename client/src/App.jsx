@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router'
+import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import useAuth from './store/authStore'
@@ -26,8 +26,10 @@ function App() {
 
 const ProtectedRoute = () => {
   const user = useAuth(state => state.user)
+  const location = useLocation()
+
   if (!user) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />
   }
 
   return (

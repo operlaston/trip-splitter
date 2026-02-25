@@ -14,7 +14,7 @@ const Transactions = () => {
     return (
       <>
         <h2>
-          Trip Members
+          Transactions
         </h2>
         <div>
           Loading Transactions...
@@ -28,7 +28,7 @@ const Transactions = () => {
     return (
       <>
         <h2>
-          Trip Members
+          Transactions
         </h2>
         <div className="login-error">
           An error has occurred while loading transactions.

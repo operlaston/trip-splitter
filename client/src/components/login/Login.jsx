@@ -3,12 +3,16 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { setToken } from '../../api/api'
 import useAuth from '../../store/authStore'
+import { useLocation } from 'react-router'
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   })
+
+  const location = useLocation()
+  const from = location.state?.from || "/"
 
   const { username, password } = formData
 
@@ -47,7 +51,7 @@ const Login = () => {
       const user = await login({ username, password });
       setUser(user)
       setToken(user.token)
-      navigate('/')
+      navigate(from, {replace: true})
     }
     catch (e) {
       if (e.status === 404) {
