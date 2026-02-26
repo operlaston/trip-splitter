@@ -29,7 +29,7 @@ transactionsRouter.get('/', async (req, res) => {
 
   const isUserTripMember = await isTripMember(tripId, userId)
   if (!isUserTripMember) {
-    return res.status(401).send('user is not a member of the trip for which the transaction is part of')
+    return res.status(403).send('user is not a member of the trip for which the transaction is part of')
   }
 
   response = await pool.query("\
@@ -61,7 +61,7 @@ transactionsRouter.post('/', async (req, res) => {
     ", [tripId, userId])
 
   if (checkUserResponse.rowCount === 0) {
-    return res.status(401).send(`user is not a member of trip with id ${tripId}`)
+    return res.status(403).send(`user is not a member of trip with id ${tripId}`)
   }
 
   try {

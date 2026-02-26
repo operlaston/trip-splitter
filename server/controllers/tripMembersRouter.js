@@ -23,7 +23,7 @@ tripMembersRouter.get('/', async (req, res) => {
     }
   }
   if (!userInTrip) {
-    return res.status(401).send('users may only view members of own trips')
+    return res.status(403).send('users may only view members of own trips')
   }
 
   if (response.rowCount === 0) {
@@ -49,7 +49,7 @@ tripMembersRouter.post('/', async (req, res) => {
   }
 
   if (checkLockedResponse.rows[0].locked) {
-    return res.status(401).json('trip is locked -- no new members may join')
+    return res.status(403).json('trip is locked -- no new members may join')
   }
 
   const response = await pool.query("\

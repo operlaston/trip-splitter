@@ -17,7 +17,7 @@ transactionSplitsRouter.get('/', async (req, res) => {
 
   const isUserTripMember = await isTripMember(tripId, userId)
   if (!isUserTripMember) {
-    return res.status(401).send('user is not a member of the trip for which the transaction is part of')
+    return res.status(403).send('user is not a member of the trip for which the transaction is part of')
   }
 
   const getSplitsResponse = await pool.query("\

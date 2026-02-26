@@ -20,6 +20,7 @@ const errorHandler = (err, req, res, next) => {
     res.status(404).send(`Requested Route: ${req.originalUrl} doesn't exist`)
   }
   else if (err.code === '22P02') {
+    // input data incorrect type
     res.status(400).send(err.message)
   }
   else if (err.code === '23505') {

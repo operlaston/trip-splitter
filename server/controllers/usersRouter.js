@@ -32,7 +32,7 @@ usersRouter.put('/:id', async (req, res) => {
 
   // a user may only modify their own information
   if (id !== req.user.id) {
-    return res.status(401).send('user may only modify itself')
+    return res.status(403).send('user may only modify itself')
   }
 
   const { name, username } = req.body
@@ -54,7 +54,7 @@ usersRouter.delete('/:id', async (req, res) => {
 
   // a user may only delete itself
   if (id !== req.user.id) {
-    return res.status(401).send('user may only delete itself')
+    return res.status(403).send('user may only delete itself')
   }
 
   const result = await pool.query("\
