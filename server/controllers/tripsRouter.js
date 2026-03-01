@@ -11,6 +11,15 @@ tripsRouter.use("/:id/members", tripMembersRouter)
 // reroute requests about transactions to the corresponding router
 tripsRouter.use("/:id/transactions", transactionsRouter)
 
+const isTripMember = async (tripId, userId) => {
+  const response = await pool.query("\
+    SELECT * FROM trip_members \
+    WHERE trip_id = $1 AND user_id = $2\
+    ", [tripId, userId])
+  if (response.rowCount === 0) return false
+  return true
+}
+
 // get all for the asking user
 tripsRouter.get("/", async (req, res) => {
   const userId = req.user.id
@@ -27,12 +36,17 @@ tripsRouter.get("/", async (req, res) => {
 // get by id
 tripsRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
+  const userId = req.user.id;
   const trip = await pool.query(" \
     SELECT * FROM trips \
     WHERE id = $1 \
     ", [id])
   if (trip.rowCount == 0) {
     return res.status(404).send('id doesnt exist');
+  }
+  const isUserTripMember = await isTripMember(id, userId)
+  if (!isUserTripMember) {
+    return res.status(403).send('user is not a member of the trip for which the transaction is part of')
   }
   res.json(trip.rows[0])
 })

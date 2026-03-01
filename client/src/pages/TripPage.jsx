@@ -27,7 +27,7 @@ const TripPage = () => {
     mutationFn: lockTrip,
     onSuccess: () => {
       const trip = queryClient.getQueryData(['trip', tripId])
-      queryClient.setQueryData(['trip', tripId], {...trip, locked: true})
+      queryClient.setQueryData(['trip', tripId], { ...trip, locked: true })
     },
     onError: (err) => {
       console.error("an error occurred while trying to lock the trip", err)
@@ -38,7 +38,7 @@ const TripPage = () => {
     mutationFn: unlockTrip,
     onSuccess: () => {
       const trip = queryClient.getQueryData(['trip', tripId])
-      queryClient.setQueryData(['trip', tripId], {...trip, locked: false})
+      queryClient.setQueryData(['trip', tripId], { ...trip, locked: false })
     },
     onError: (err) => {
       console.error("an error occurred while trying to lock the trip", err)
@@ -54,7 +54,14 @@ const TripPage = () => {
   }
 
   else if (tripQuery.isError) {
-    console.error(tripQuery.error)
+    if (tripQuery.error.status == 403) {
+      return (
+        <div className="trip-page-container">
+          <h1>Forbidden</h1>
+          <div>You are forbidden from viewing this trip.</div>
+        </div>
+      )
+    }
     return (
       <div className="trip-page-container">
         An error has occurred while loading trip with id: {tripId}.
@@ -80,20 +87,20 @@ const TripPage = () => {
           <span>{trip.name}</span>
           {
             trip.locked
-              ? 
-                <svg onClick={unlock} xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M12 0a4 4 0 0 1 4 4v2.5h-1V4a3 3 0 1 0-6 0v2h.5A2.5 2.5 0 0 1 12 8.5v5A2.5 2.5 0 0 1 9.5 16h-7A2.5 2.5 0 0 1 0 13.5v-5A2.5 2.5 0 0 1 2.5 6H8V4a4 4 0 0 1 4-4"/>
-                </svg>
+              ?
+              <svg onClick={unlock} xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 0a4 4 0 0 1 4 4v2.5h-1V4a3 3 0 1 0-6 0v2h.5A2.5 2.5 0 0 1 12 8.5v5A2.5 2.5 0 0 1 9.5 16h-7A2.5 2.5 0 0 1 0 13.5v-5A2.5 2.5 0 0 1 2.5 6H8V4a4 4 0 0 1 4-4" />
+              </svg>
               :
-                <svg onClick={lock} xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
-                </svg>
+              <svg onClick={lock} xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3" />
+              </svg>
           }
         </h1>
         <div className="trip-actions">
           <h2 className="trip-id"><b>Join Code: {trip.id}</b></h2>
           <div><i>This trip is currently {trip.locked ? "locked" : "unlocked"} meaning {trip.locked ? "no new members may join." : "new members may join."} Click the lock icon to {trip.locked ? "unlock the trip." : "lock the trip."}</i></div>
-          <button className="add-transaction-btn" onClick={() => setIsCreatingTransaction(prev => !prev)}>+ Add Transaction</button> 
+          <button className="add-transaction-btn" onClick={() => setIsCreatingTransaction(prev => !prev)}>+ Add Transaction</button>
         </div>
         <div className="trip-body-container">
           <div className="trip-section-container">
