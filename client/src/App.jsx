@@ -6,8 +6,40 @@ import Navbar from './components/Navbar'
 import NewTripPage from './pages/NewTripPage'
 import JoinTripPage from './pages/JoinTripPage'
 import TripPage from './pages/TripPage'
+import { useEffect } from 'react'
+import { refresh } from './api/loginService'
+import { setToken } from './api/api'
+import { useState } from 'react'
 
 function App() {
+  const setUser = useAuth(state => state.setUser)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const refreshToken = async () => {
+      try {
+        const user = await refresh()
+        setToken(user.token)
+        setUser(user)
+      }
+      catch (e) {
+        console.error(e)
+      }
+      finally {
+        setIsLoading(false)
+      }
+    }
+    refreshToken()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div>
+        Initializing...
+      </div>
+    )
+  }
+
 
   return (
     <div>

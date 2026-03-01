@@ -48,11 +48,11 @@ const errorHandler = (err, req, res, next) => {
 
 const verifyToken = (req, res, next) => {
   // don't need to verify token in development or test mode
-  if (process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === 'test') {
-    req.user = { id: '1' }
-    return next()
-  }
+  // if (process.env.NODE_ENV === 'development' ||
+  //   process.env.NODE_ENV === 'test') {
+  //   req.user = { id: '1' }
+  //   return next()
+  // }
 
   // retrieve authorization header
   const auth = req.get('Authorization')

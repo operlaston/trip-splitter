@@ -10,3 +10,12 @@ export const signup = async ({ name, username, password }) => {
   await api.post('/signup', { name, username, password })
 }
 
+export const refresh = async () => {
+  const response = await api.post('/login/refresh')
+  const user = response.data
+  return user
+}
+
+export const logout = async () => {
+  await api.post('/logout')
+}
