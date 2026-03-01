@@ -2,9 +2,11 @@ import { Link } from "react-router"
 import '../styles/Navbar.css'
 import useAuth from '../store/authStore'
 import { logout } from "../api/loginService"
+import { useQueryClient } from "@tanstack/react-query"
 
 const Navbar = () => {
   const setUser = useAuth(state => state.setUser)
+  const queryClient = useQueryClient()
 
   const handleLogout = async () => {
     try {
@@ -13,7 +15,10 @@ const Navbar = () => {
     catch (e) {
       console.error(e)
     }
-    setUser(null)
+    finally {
+      setUser(null)
+      queryClient.clear()
+    }
   }
 
   return (

@@ -20,7 +20,13 @@ const TripPage = () => {
 
   const tripQuery = useQuery({
     queryKey: ['trip', tripId],
-    queryFn: () => getTripById(tripId)
+    queryFn: () => getTripById(tripId),
+    retry: (failureCount, err) => {
+      if (err.response?.status === 403) {
+        return false
+      }
+      return failureCount < 3
+    }
   })
 
   const lockTripMutation = useMutation({
