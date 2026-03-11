@@ -91,8 +91,9 @@ tripsRouter.put("/:id/lock", async (req, res) => {
   const lockedTrip = await pool.query("\
     UPDATE trips \
     SET locked = true \
+    WHERE id = $1 \
     RETURNING *\
-    ")
+    ", [id])
   if (lockedTrip.rowCount == 0) {
     return res.status(404).send('id doesnt exist')
   }
@@ -106,8 +107,9 @@ tripsRouter.put("/:id/unlock", async (req, res) => {
   const unlockedTrip = await pool.query("\
     UPDATE trips \
     SET locked = false \
+    WHERE id = $1 \
     RETURNING *\
-    ")
+    ", [id])
   if (unlockedTrip.rowCount == 0) {
     return res.status(404).send('id doesnt exist')
   }
