@@ -9,7 +9,7 @@ const Transactions = () => {
   const trip = queryClient.getQueryData(['trip', tripId])
   const transactionsQuery = useQuery({
     queryKey: ['transactions', tripId],
-    queryFn: getTransactions
+    queryFn: () => getTransactions(tripId)
   })
 
   const transactions = transactionsQuery.data

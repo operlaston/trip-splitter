@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
 import { getTripMembers } from "../../api/tripService"
 
@@ -7,7 +7,7 @@ const TripMembers = () => {
 
   const tripMembersQuery = useQuery({
     queryKey: ['tripMembers', tripId],
-    queryFn: getTripMembers
+    queryFn: () => getTripMembers(tripId)
   })
 
   const tripMembers = tripMembersQuery.data
